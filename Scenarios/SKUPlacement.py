@@ -12,7 +12,9 @@ class WarehouseSKUGenerator:
         sku_str = str(sku_number).zfill(2)
         return f"{column_str}{row_str}{sku_str}"
 
-    def generate_all_skus(self):
+
+
+    def generate_all_skus(self): #TODO generate only a certain set of sku ids
         skus = []
         for col in range(1, self.num_columns + 1):
             for row in range(1, self.num_rows + 1):
