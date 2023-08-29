@@ -1,7 +1,6 @@
 from Aisle import *
-import Condition
 
-class layout(Condition):
+class layout():
     
     no_of_sku_per_aisle = 0
     no_of_shelves = 0
@@ -10,8 +9,7 @@ class layout(Condition):
     start_node = 0
     aisle_arr = None
     
-    def __init__(self,random_gen:bool, no_of_sku_per_aisle:int, no_of_shelves:int, no_cross_aisles:int, no_of_columns:int) -> None:
-        super(random_gen)
+    def __init__(self, no_of_sku_per_aisle:int, no_of_shelves:int, no_cross_aisles:int, no_of_columns:int) -> None:
         self.no_of_sku_per_aisle = no_of_sku_per_aisle
         self.no_of_shelves = no_of_shelves
         self.no_cross_aisles = no_cross_aisles
@@ -34,5 +32,3 @@ class layout(Condition):
         self.aisle_arr = aisle_arr
         return self.aisle_arr
         
-
-    
