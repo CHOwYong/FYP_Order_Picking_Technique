@@ -21,7 +21,7 @@ class Scenario():
         total_dist_travelled = heuristic_s(self.layout,self.SKUlist)
 
         #time to walk 1 m = 2.5s
-        time_taken = dist_travelled*2.5
+        time_taken = total_dist_travelled*2.5
 
         #cross aisles
         no_cross_aisles = self.layout.no_cross_aisles
@@ -29,4 +29,7 @@ class Scenario():
         #no workers
         no_workers = self.worker_condition.worker_number
 
-        #
+        #picking method
+        picking_method = "Heuristic S"
+
+        return [picking_method,total_dist_travelled,time_taken,no_cross_aisles,no_workers]

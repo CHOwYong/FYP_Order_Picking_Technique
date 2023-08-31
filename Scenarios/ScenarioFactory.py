@@ -5,3 +5,13 @@
 
 #SO here we will be mass producing scenarios
 #Then feeding it to the simulation running component
+
+from Scenario import Scenario
+from csv import writer
+
+class ScenarioFactory():
+    def __init__(self) -> None:
+        pass
+
+    def simulate(self):
+        pass
