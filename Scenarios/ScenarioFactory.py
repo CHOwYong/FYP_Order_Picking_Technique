@@ -1,3 +1,12 @@
+"""
+Author : Tan Jian Xi
+last modified: 16/9
+last modified by: Tan Jian Xi
+"""
+
+
+
+
 #purpose of this class is to enable fixing of certain variables
 #for example for all simulations use layout 1
 #all simulations use only 2 workers etcetc

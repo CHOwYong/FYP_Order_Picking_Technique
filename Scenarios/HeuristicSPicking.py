@@ -1,3 +1,9 @@
+"""
+Author : Tan Jian Xi
+last modified: 16/9
+last modified by: Tan Jian Xi
+"""
+
 from Layout import *
 
 def get_sku_list_rows(sku_list:list,layout:layout):
@@ -160,17 +166,14 @@ if __name__ == "__main__":
     layout = layout(80,4,100,4)
     skus = [1140,1141,1341,1440,2140,2141,2341,2440]
     print(heuristic_s(layout=layout,sku_list=skus))
-    skus = [1140,3140]
-    print(heuristic_s(layout=layout,sku_list=skus))
-    skus = [1140,3141]
-    print(heuristic_s(layout=layout,sku_list=skus))
-    skus = [2140]
-    print(heuristic_s(layout=layout,sku_list=skus))
-    skus = [3141]
-    print(heuristic_s(layout=layout,sku_list=skus))
-    # print(get_sku_list_rows(skus))
-    # skus = [1140,1141,1341,1440]
-    # print(get_aisles(sku_list=skus))
-    # print(heuristic_s_picking_row(sku_list=skus,direction="left"))
+    # skus = [1140,3140]
+    # print(heuristic_s(layout=layout,sku_list=skus))
+    # skus = [1140,3141]
+    # print(heuristic_s(layout=layout,sku_list=skus))
+    # skus = [2140]
+    # print(heuristic_s(layout=layout,sku_list=skus))
+    # skus = [3141]
+    # print(heuristic_s(layout=layout,sku_list=skus))
+
     
     pass

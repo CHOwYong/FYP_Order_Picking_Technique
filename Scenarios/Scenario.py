@@ -1,3 +1,11 @@
+"""
+Author : Tan Jian Xi
+last modified: 16/9
+last modified by: Tan Jian Xi
+"""
+
+
+
 from Layout import layout
 from WorkerCondition import WorkerCondition
 from HeuristicSPicking import heuristic_s
