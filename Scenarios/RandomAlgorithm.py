@@ -1,3 +1,9 @@
+"""
+Author : Subhan Saadat Khan
+last modified: 15/09
+last modified by: Subhan Saadat Khan
+"""
+
 #  [colum no], [row no], [no],[no}?
 
 def start_picking(skuList):
