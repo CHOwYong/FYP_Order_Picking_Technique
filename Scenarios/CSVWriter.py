@@ -35,4 +35,20 @@ def writeNewCsv(filename:str,data:list[list]) -> bool:
     
     return True
 
+
+def appendCsv(filename:str,data:list[list]) -> bool:
+    fields = CSVHEADER
+
+    with open(filename,"a") as csvfile:
+        # creating a csv writer object 
+        csvwriter = csv.writer(csvfile) 
+        
+        # writing the fields 
+        csvwriter.writerow(fields) 
+        
+        # writing the data rows 
+        csvwriter.writerows(data)
+    
+    return True
+
     
