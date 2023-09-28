@@ -1,6 +1,12 @@
-
-
+"""
+Author : OwYongCheeHao
+last modified: 25/9
+last modified by: OwYongCheeHao
+"""
 class sku:
+    """
+    This class is for making sku object/nodes for the network graph
+    """
     # class attributes
     sku_no = None
     sku_neighbours = None
@@ -9,7 +15,7 @@ class sku:
         self.sku_no = no_of_sku
         self.sku_neighbours = []
         
-    def add_neighbour(self, neighbour_sku:int) -> None:
+    def add_neighbour(self, neighbour_sku) -> None:
         self.sku_neighbours.append(neighbour_sku)
     
     def get_neighbours(self) -> list:

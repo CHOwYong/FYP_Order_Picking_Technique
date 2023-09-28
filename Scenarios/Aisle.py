@@ -3,11 +3,11 @@ Author : OwYongCheeHao
 last modified: 25/9
 last modified by: OwYongCheeHao
 """
-
 from SKU import sku
 class aisle:
     # class attributes
-    no_of_sku = None
+    no_of_sku = None # total number of sku in the aisle
+    half_no_of_sku = None # half of the total number of sku in the aisle
     col_number = None
     row_number = None
     temp_array_L = None
@@ -24,6 +24,7 @@ class aisle:
         L_col_prev_node = None
         R_col_prev_node = None
         middle = self.no_of_sku // 2
+        self.half_no_of_sku = self.no_of_sku // 2
         
         
         for i in range(1,self.no_of_sku+1): # it will loop from 1 to no_of_sku so that sku number will start from 1 instead of 0
@@ -46,11 +47,10 @@ class aisle:
     
     def build_neighbours_left_right(self,prev_node:sku,curr_node:sku):
         if prev_node != None:
-            prev_node.add_neighbour(curr_node.get_sku_no())
-            curr_node.add_neighbour(prev_node.get_sku_no())
+            prev_node.add_neighbour(curr_node)
+            curr_node.add_neighbour(prev_node)
     
     def build_neighbours_up_down(self,prev_node:sku,curr_node:sku):
         if prev_node != None:
-            prev_node.add_neighbour(curr_node.get_sku_no())
-            curr_node.add_neighbour(prev_node.get_sku_no())
-    
+            prev_node.add_neighbour(curr_node)
+            curr_node.add_neighbour(prev_node)
