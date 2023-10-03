@@ -31,13 +31,13 @@ class aisle:
             sku_no = self.col_number * 1000 + self.row_number * 100 + i
             # left column of aisle
             if i <= middle:
-                sku_node = sku(sku_no)
+                sku_node = sku(sku_no, 0)
                 self.temp_array_L.append(sku_node)
                 self.build_neighbours_up_down(L_col_prev_node,sku_node)
                 L_col_prev_node = sku_node
             # right column of aisle
             else: 
-                sku_node = sku(sku_no)
+                sku_node = sku(sku_no, 1)
                 self.temp_array_R.append(sku_node)
                 self.build_neighbours_up_down(R_col_prev_node,sku_node)
                 self.build_neighbours_left_right(self.temp_array_L[i-middle],sku_node)

@@ -10,10 +10,12 @@ class sku:
     # class attributes
     sku_no = None
     sku_neighbours = None
+    sku_side = None # 0 means left and 1 means right
     
-    def __init__(self, no_of_sku:int) -> None:
+    def __init__(self, no_of_sku, sku_side:int) -> None:
         self.sku_no = no_of_sku
         self.sku_neighbours = []
+        self.sku_side = sku_side
         
     def add_neighbour(self, neighbour_sku) -> None:
         self.sku_neighbours.append(neighbour_sku)
