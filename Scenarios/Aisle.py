@@ -17,6 +17,7 @@ class aisle:
         self.no_of_sku = no_of_sku
         self.col_number = col_number
         self.row_number = row_number
+        self.build()
     
     def build(self):
         self.temp_array_L = []
@@ -40,10 +41,12 @@ class aisle:
                 sku_node = sku(sku_no, 1)
                 self.temp_array_R.append(sku_node)
                 self.build_neighbours_up_down(R_col_prev_node,sku_node)
-                self.build_neighbours_left_right(self.temp_array_L[i-middle],sku_node)
                 R_col_prev_node = sku_node
         
-        
+        # link top 2 nodes
+        self.build_neighbours_left_right(self.temp_array_L[0],self.temp_array_R[0])
+        # link bottom 2 nodes
+        self.build_neighbours_left_right(self.temp_array_L[-1],self.temp_array_R[-1])
     
     def build_neighbours_left_right(self,prev_node:sku,curr_node:sku):
         if prev_node != None:
