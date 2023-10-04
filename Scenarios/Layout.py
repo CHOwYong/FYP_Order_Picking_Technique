@@ -30,7 +30,7 @@ class layout():
 
     def load(self): #Maybe switch this to load layout one, then have other functions for other layouts, then have a big load function that chooses what to load
         # Create a list of aisles
-        aisle_arr = [None*self.no_of_columns]*self.no_of_rows
+        aisle_arr = [[None] * self.no_of_columns] * self.no_of_rows
         
         for i in range(1, self.no_of_rows + 1):
             for j in range(1, self.no_of_columns + 1):

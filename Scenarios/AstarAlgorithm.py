@@ -6,9 +6,11 @@ last modified by: OwYongCheeHao
 #%%
 from SKU import *
 from Layout import *
+from Heapq import *
 
 def a_star_algorithm(layout:layout):
     pass
+    
 
 def g_cost(sku1:sku, sku2:sku):
     """
@@ -115,25 +117,35 @@ def h_cost(sku1:sku, sku2:sku,item_per_aisle:int):
 #%%
 if __name__ == "__main__":
     
-    ######## Test for h(n) correctness ########
-    sku1 = sku(1105,0)
-    sku2 = sku(2215,0)
     
-    h_cost(sku1,sku2,50)
-    h_cost(sku2,sku1,50) # test if the ordering is correct
+    # sku1 = sku(1105,0)
+    # sku2 = sku(2215,0)
+    # sku3 = sku(1106,0)
+    # sku4 = sku(1110,1)
+    # ######## Test for h(n) correctness ########  
+    # h_cost(sku1,sku2,50)
+    # h_cost(sku2,sku1,50) # test if the ordering is correct
     
-    ######## Test for g(n) correctness ########
-    sku1 = sku(1105,0)
-    sku2 = sku(1106,0)
+    # ######## Test for g(n) correctness ########
+    # g_n = g_cost(sku1,sku3) # expect answer is 1
+    # print(g_n)
     
-    g_n = g_cost(sku1,sku2) # expect answer is 1
-    print(g_n)
+    # g_n = g_cost(sku1,sku4) # expect answer is 2
+    # print(g_n)
     
-    sku1 = sku(1105,0)
-    sku2 = sku(1110,1)
+    # ######## Testing for Heapq working correctly or not ########
+    # test = PriorityQueue()
+    # test.push(sku1,10)
+    # test.push(sku2,2)
+    # test.push(sku3,23)
     
-    g_n = g_cost(sku1,sku2) # expect answer is 2
-    print(g_n)
+    # test.update(sku3,1)
     
+    # print(test.pop().get_sku_no())
+    # print(test.pop().get_sku_no())
 
+    ####### Testing for layout ########
+    layout1 = layout(10,0,2,2)
+    layout1.load()
+    print(layout1.aisle_arr)
 # %%
