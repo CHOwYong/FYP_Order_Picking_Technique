@@ -20,8 +20,8 @@ def g_cost(sku1:sku, sku2:sku):
     """
     sku1_no_str = str(sku1.get_sku_no())
     sku2_no_str = str(sku2.get_sku_no())
-    sku1_no = sku1.get_sku_no
-    sku2_no = sku2.get_sku_no
+    sku1_no = sku1.get_sku_no()
+    sku2_no = sku2.get_sku_no()
     
 
     # same column
@@ -42,6 +42,7 @@ def g_cost(sku1:sku, sku2:sku):
         # same row
         if sku1_no_str[1] == sku2_no_str[1]:
             dist = 2
+    return dist
 
 
 def h_cost(sku1:sku, sku2:sku,item_per_aisle:int):
@@ -54,20 +55,20 @@ def h_cost(sku1:sku, sku2:sku,item_per_aisle:int):
         sku2 (sku): second sku node (destination) 
     """
     # ordering by the property sku1 < sku2
-    # sku1_no = sku1.get_sku_no
-    # sku2_no = sku2.get_sku_no
-    # print(sku1_no)
-    # if sku1_no > sku2_no:
-    #     temp = sku1
-    #     sku1 = sku2
-    #     sku2 = temp
+    sku1_no = sku1.get_sku_no()
+    sku2_no = sku2.get_sku_no()
+    if sku1_no > sku2_no:
+        temp = sku1
+        sku1 = sku2
+        sku2 = temp
     
-    print("Computing")
     sku1_no_str = str(sku1.get_sku_no())
     sku2_no_str = str(sku2.get_sku_no())
-    print("sku_number:",sku1_no_str)
-    print("sku number:",sku1.sku_no)
     half_item = item_per_aisle // 2
+    # print("Computing")
+    # print("sku_number1:", sku1_no_str)
+    # print("sku number2:", sku2_no_str)
+    # print("item per aisle:",item_per_aisle)
     
     # __________________Y difference__________________
     # same row
@@ -106,21 +107,33 @@ def h_cost(sku1:sku, sku2:sku,item_per_aisle:int):
             x_dist += (col_multiplier - 1) * 2 # width of colmun is 2 meter
     
     h_n = x_dist + y_dist
-    print("x distance:",x_dist)
-    print("y distance:",y_dist)
+    # print("x distance:",x_dist)
+    # print("y distance:",y_dist)
     return h_n
 
     
 #%%
 if __name__ == "__main__":
-    # Test for h(n)
+    
+    ######## Test for h(n) correctness ########
     sku1 = sku(1105,0)
     sku2 = sku(2215,0)
     
     h_cost(sku1,sku2,50)
+    h_cost(sku2,sku1,50) # test if the ordering is correct
     
+    ######## Test for g(n) correctness ########
+    sku1 = sku(1105,0)
+    sku2 = sku(1106,0)
     
+    g_n = g_cost(sku1,sku2) # expect answer is 1
+    print(g_n)
     
+    sku1 = sku(1105,0)
+    sku2 = sku(1110,1)
+    
+    g_n = g_cost(sku1,sku2) # expect answer is 2
+    print(g_n)
     
 
 # %%
