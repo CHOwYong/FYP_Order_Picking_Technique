@@ -4,6 +4,7 @@ last modified: 4/10
 last modified by: OwYongCheeHao
 """
 import heapq
+
 class PriorityQueue:
     """
       Implements a priority queue data structure. Each inserted item

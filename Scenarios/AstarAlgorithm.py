@@ -8,8 +8,78 @@ from SKU import *
 from Layout import *
 from Heapq import *
 
-def a_star_algorithm(layout:layout):
-    pass
+def a_star_algorithm(layout:layout,sku_orderList):
+    frontiers = PriorityQueue()
+    item_per_aisle = layout.no_of_sku_per_aisle
+    
+    # add the starting node to the frontiers
+    frontiers.push(layout.start_node,0)
+    # make the sku list to temp nodes (instead of finding the nodes in layout)
+    goals = make_node(sku_orderList,item_per_aisle)
+    # visited nodes
+    visited = []
+    
+    # main algorithm
+    while frontiers.isEmpty() == False and len(goals) != 0:
+        curr_node = frontiers.pop()
+        visited.append(curr_node.get_sku_no())
+        # print(curr_node.get_sku_no(), curr_node.get_total_dist())
+        
+        # if current node is the goal remove from goal list
+        check, goals_list = is_goal(curr_node.get_sku_no(), goals)
+        # print("is it goal:",check)
+        # print("goal left:",goals_list)
+        if check:
+            goals = goals_list
+            if len(goals) == 0:
+                total_dist_travel = curr_node.get_total_dist()
+                return total_dist_travel
+            else:
+                frontiers = PriorityQueue()
+                visited = []
+        
+        neighbour_list = curr_node.get_neighbours()
+        
+        # print("neighbour sku")
+        for n in neighbour_list:
+            n_sku_no = n.get_sku_no()
+            # print(n_sku_no)
+            if n_sku_no in visited:
+                continue
+            
+            # calculate g(n) then add with old g(n) to target node
+            gn = g_cost(curr_node,n)
+            total_gn = curr_node.get_total_dist() + gn
+            n.update_total_dist(total_gn)
+        
+            # calculate sum of h(n) to all goals
+            hn = sum_h_cost(n,goals,item_per_aisle)
+            
+            # calculate f(n) = g(n) + h(n)
+            fn = total_gn + hn
+            
+            # update the frontier
+            frontiers.update(n,fn)
+    
+        
+def is_goal(sku_no:int, goals:list):
+    for i in range(len(goals)):
+        if goals[i].get_sku_no() == sku_no:
+            goals.pop(i)
+            return True, goals
+    return False, goals
+
+def make_node(sku_list:list,item_per_aisle:int):
+    list_sku = []
+    half_item = item_per_aisle // 2
+    for sku_no in sku_list:
+        no = int(str(sku_no)[2:])
+        if no <= half_item:
+            temp = sku(sku_no,0)
+        else:
+            temp = sku(sku_no,1)
+        list_sku.append(temp)
+    return list_sku
     
 
 def g_cost(sku1:sku, sku2:sku):
@@ -113,18 +183,24 @@ def h_cost(sku1:sku, sku2:sku,item_per_aisle:int):
     # print("y distance:",y_dist)
     return h_n
 
+
+def sum_h_cost(sku1,sku_list,item_per_aisle):
+    h = 0
+    for goal in sku_list:
+        h += h_cost(sku1,goal,item_per_aisle)
+    return h
     
 #%%
 if __name__ == "__main__":
     
     
     # sku1 = sku(1105,0)
-    # sku2 = sku(2215,0)
+    # sku2 = sku(2205,0)
     # sku3 = sku(1106,0)
     # sku4 = sku(1110,1)
     # ######## Test for h(n) correctness ########  
-    # h_cost(sku1,sku2,50)
-    # h_cost(sku2,sku1,50) # test if the ordering is correct
+    # h_cost(sku1,sku2,10)
+    # h_cost(sku2,sku1,10) # test if the ordering is correct
     
     # ######## Test for g(n) correctness ########
     # g_n = g_cost(sku1,sku3) # expect answer is 1
@@ -139,13 +215,23 @@ if __name__ == "__main__":
     # test.push(sku2,2)
     # test.push(sku3,23)
     
-    # test.update(sku3,1)
+    # test.update(sku1,50)
     
     # print(test.pop().get_sku_no())
     # print(test.pop().get_sku_no())
 
-    ####### Testing for layout ########
-    layout1 = layout(10,0,2,2)
-    layout1.load()
-    print(layout1.aisle_arr)
+    # ####### Testing for layout ########
+    # layout1 = layout(10,0,2,2)
+    # layout1.load()
+    # print(layout1.aisle_arr)
+    
+    # # ####### Testing for is goal ########
+    # a = make_node([1105,1110],10)
+    # b,c = is_goal(1106,a)
+    
+    # ####### Testing A* algo ########
+    layout_1 = layout(10,0,2,2)
+    layout_1.load()
+    dist = a_star_algorithm(layout_1,[2103,1110,1203])
+
 # %%

@@ -12,6 +12,9 @@ class sku:
     sku_neighbours = None
     sku_side = None # 0 means left and 1 means right
     
+    # used for A* algo traverse
+    total_dist = 0
+    
     def __init__(self, no_of_sku, sku_side:int) -> None:
         self.sku_no = no_of_sku
         self.sku_neighbours = []
@@ -23,9 +26,16 @@ class sku:
     def get_neighbours(self) -> list:
         return self.sku_neighbours
     
-    def get_sku_no(self) -> int:
+    def get_sku_no(self):
         return self.sku_no
+    
+    def get_total_dist(self):
+        return self.total_dist
+        
+    def update_total_dist(self,total_dist):
+        self.total_dist = total_dist
     
     def __str__(self) -> str:
         return str(self.sku_no) + " " + str(self.sku_neighbours)
+    
     

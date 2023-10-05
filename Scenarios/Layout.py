@@ -32,8 +32,8 @@ class layout():
         # Create a list of aisles
         aisle_arr = [[None for i in range(self.no_of_columns)] for j in range(self.no_of_rows)]
         
-        for i in range(1, self.no_of_rows + 1):
-            for j in range(1, self.no_of_columns + 1):
+        for i in range(1, self.no_of_columns + 1):
+            for j in range(1, self.no_of_rows + 1):
                 aisle_arr[i-1][j-1] = aisle(self.no_of_sku_per_aisle, j, i)
 
         self.aisle_arr = aisle_arr
