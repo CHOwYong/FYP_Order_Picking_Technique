@@ -1,6 +1,6 @@
 """
 Author : OwYongCheeHao
-last modified: 3/10
+last modified: 7/10
 last modified by: OwYongCheeHao
 """
 #%%
@@ -9,6 +9,15 @@ from Layout import *
 from Heapq import *
 
 def a_star_algorithm(layout:layout,sku_orderList):
+    """
+    A* algorithm functions that traverse the layout picking all items as optimally as possible and returns the distance travel.
+    Args:
+        layout (layout): layout object
+        sku_orderList: list of sku numbers(int) 
+
+    Returns:
+        _type_: _description_
+    """
     frontiers = PriorityQueue()
     item_per_aisle = layout.no_of_sku_per_aisle
     
@@ -30,9 +39,11 @@ def a_star_algorithm(layout:layout,sku_orderList):
         # print("is it goal:",check)
         # print("goal left:",goals_list)
         if check:
+            print(curr_node.get_sku_no())
             goals = goals_list
             if len(goals) == 0:
                 total_dist_travel = curr_node.get_total_dist()
+                total_dist_travel += h_cost(layout.start_node,curr_node,item_per_aisle)
                 return total_dist_travel
             else:
                 frontiers = PriorityQueue()
@@ -69,7 +80,7 @@ def is_goal(sku_no:int, goals:list):
             return True, goals
     return False, goals
 
-def make_node(sku_list:list,item_per_aisle:int):
+def make_node(sku_list:list, item_per_aisle:int):
     list_sku = []
     half_item = item_per_aisle // 2
     for sku_no in sku_list:
@@ -80,7 +91,7 @@ def make_node(sku_list:list,item_per_aisle:int):
             temp = sku(sku_no,1)
         list_sku.append(temp)
     return list_sku
-    
+
 
 def g_cost(sku1:sku, sku2:sku):
     """
@@ -117,7 +128,7 @@ def g_cost(sku1:sku, sku2:sku):
     return dist
 
 
-def h_cost(sku1:sku, sku2:sku,item_per_aisle:int):
+def h_cost(sku1:sku, sku2:sku, item_per_aisle:int):
     """
     The heuristic cost of traveling from sku1 node to sku2 node.  It is calculated by using manthaton distance.
     Basic assumption sku1 node is always the left of sku2 node and sku1 node is always above sku2 node.
@@ -146,9 +157,15 @@ def h_cost(sku1:sku, sku2:sku,item_per_aisle:int):
     # same row
     if sku1_no_str[1] == sku2_no_str[1]:
         y_dist = abs(int(sku1_no_str[2:]) - int(sku2_no_str[2:]))
+        # diff side of aisle
+        if sku1.sku_side != sku2.sku_side:
+            y_dist = abs(y_dist - half_item)
     # different row
     else:
-        y_dist = abs((half_item - int(sku1_no_str[2:])) + int(sku2_no_str[2:]))
+        y_dist = abs((half_item - int(sku1_no_str[2:])) + int(sku2_no_str[2:]))        
+        # diff side of aisle
+        if sku1.sku_side != sku2.sku_side:
+            y_dist = abs(y_dist - half_item)
         
         # add the row and walkway distance between them
         row_multiplier = abs(int(sku1_no_str[1]) - int(sku2_no_str[1]))
@@ -161,7 +178,7 @@ def h_cost(sku1:sku, sku2:sku,item_per_aisle:int):
     # __________________X difference__________________
     x_temp = abs(sku1.sku_side - sku2.sku_side)
     # same col
-    if sku1_no_str[1] == sku2_no_str[1]:
+    if sku1_no_str[0] == sku2_no_str[0]:
         x_dist = x_temp * 2
     else:
         if sku1.sku_side == 0 and x_temp == 0:
@@ -189,18 +206,40 @@ def sum_h_cost(sku1,sku_list,item_per_aisle):
     for goal in sku_list:
         h += h_cost(sku1,goal,item_per_aisle)
     return h
+
     
 #%%
 if __name__ == "__main__":
     
     
-    # sku1 = sku(1105,0)
-    # sku2 = sku(2205,0)
-    # sku3 = sku(1106,0)
-    # sku4 = sku(1110,1)
+    sku1 = sku(1105,0)
+    sku2 = sku(2205,0)
+    sku3 = sku(1106,0)
+    sku4 = sku(1110,1)
     # ######## Test for h(n) correctness ########  
-    # h_cost(sku1,sku2,10)
-    # h_cost(sku2,sku1,10) # test if the ordering is correct
+    # sku1 = sku(1101,0)
+    # sku2 = sku(1105,0)
+    # h_cost(sku1,sku2,10) # expect x=0,y=4,total=4
+    
+    # sku1 = sku(1101,0)
+    # sku2 = sku(1110,1)
+    # h_cost(sku1,sku2,10) # expect x=2,y=4,total=6
+    
+    # sku1 = sku(1101,0)
+    # sku2 = sku(2101,0)
+    # h_cost(sku1,sku2,10) # expect x=4,y=0,total=4
+    
+    # sku1 = sku(1101,0)
+    # sku2 = sku(2106,1)
+    # h_cost(sku1,sku2,10) # expect x=6,y=0,total=6
+    
+    # sku1 = sku(1101,0)
+    # sku2 = sku(2110,1)
+    # h_cost(sku1,sku2,10) # expect x=6,y=4,total=10
+    
+    # sku1 = sku(1101,0)
+    # sku2 = sku(1210,1)
+    # h_cost(sku1,sku2,10) # expect x=2,y=11,total=13
     
     # ######## Test for g(n) correctness ########
     # g_n = g_cost(sku1,sku3) # expect answer is 1
@@ -229,9 +268,9 @@ if __name__ == "__main__":
     # a = make_node([1105,1110],10)
     # b,c = is_goal(1106,a)
     
-    # ####### Testing A* algo ########
+    ####### Testing A* algo ########
     layout_1 = layout(10,0,2,2)
     layout_1.load()
-    dist = a_star_algorithm(layout_1,[2103,1110,1203])
+    dist = a_star_algorithm(layout_1,[2103,1110,1203,2210]) # optimal path is 34 but expect to be 47 instead
 
 # %%
