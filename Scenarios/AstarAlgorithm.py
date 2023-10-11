@@ -212,10 +212,10 @@ def sum_h_cost(sku1,sku_list,item_per_aisle):
 if __name__ == "__main__":
     
     
-    sku1 = sku(1105,0)
-    sku2 = sku(2205,0)
-    sku3 = sku(1106,0)
-    sku4 = sku(1110,1)
+    # sku1 = sku(1105,0)
+    # sku2 = sku(2205,0)
+    # sku3 = sku(1106,0)
+    # sku4 = sku(1110,1)
     # ######## Test for h(n) correctness ########  
     # sku1 = sku(1101,0)
     # sku2 = sku(1105,0)
@@ -269,7 +269,7 @@ if __name__ == "__main__":
     # b,c = is_goal(1106,a)
     
     ####### Testing A* algo ########
-    layout_1 = layout(10,0,2,2)
+    layout_1 = layout(10,0,10,10)
     layout_1.load()
     dist = a_star_algorithm(layout_1,[2103,1110,1203,2210]) # optimal path is 34 but expect to be 47 instead
 
