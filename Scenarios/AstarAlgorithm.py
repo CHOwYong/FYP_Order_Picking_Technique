@@ -39,7 +39,7 @@ def a_star_algorithm(layout:layout,sku_orderList):
         # print("is it goal:",check)
         # print("goal left:",goals_list)
         if check:
-            print(curr_node.get_sku_no())
+            # print(curr_node.get_sku_no())
             goals = goals_list
             if len(goals) == 0:
                 total_dist_travel = curr_node.get_total_dist()
@@ -271,6 +271,6 @@ if __name__ == "__main__":
     ####### Testing A* algo ########
     layout_1 = layout(10,0,10,10)
     layout_1.load()
-    dist = a_star_algorithm(layout_1,[2103,1110,1203,2210]) # optimal path is 34 but expect to be 47 instead
+    dist = a_star_algorithm(layout_1,[2103,1110,1203,2210,9901,101011]) # optimal path is 34 but expect to be 47 instead
 
 # %%
