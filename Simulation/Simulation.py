@@ -21,7 +21,7 @@ from SKUPlacement import WarehouseSKUIDGenerator
 from Layout import layout
 import random
 from CSVWriter import writeNewCsv
-import sys
+import os
 
 
 def simulate(rangeRowsCols:int,maxNoSKUs:int,noIterations:int,noWorkers:int,filename:str,rangeRowColsFixed:int = 0,maxNoSkusFixed:int = 0,noWorkersFixed:int = 0) -> None:
@@ -91,13 +91,13 @@ def simulate(rangeRowsCols:int,maxNoSKUs:int,noIterations:int,noWorkers:int,file
 
     writeNewCsv(filename + ".csv",res)
     
-    print("Results Have Been Written to " + filename + ".csv")
+    print("Results Have Been Written to " + os.getcwd() + "\\" + filename + ".csv")
 
 
 if __name__ == "__main__":
     #max no of SKUS is 40
     #max rows and cols is 9
-    # simulate(9,40,500,4,"results")
+    # simulate(9,40,1,4,"test")
     # simulate(9,40,500,4,"NoWorkersEffect",rangeRowColsFixed=1,maxNoSkusFixed=1)
     # simulate(9,40,500,1,"RangeColRowsEffect",noWorkersFixed=1,maxNoSkusFixed=1)
     # simulate(9,40,500,1,"MaxNoSkusEffect",noWorkersFixed=1,rangeRowColsFixed=1)
