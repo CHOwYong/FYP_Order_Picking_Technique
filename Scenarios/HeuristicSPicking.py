@@ -1,13 +1,13 @@
 """
 Author : Tan Jian Xi
-last modified: 16/9
+last modified: 9/10
 last modified by: Tan Jian Xi
 """
 
 from Layout import *
 
 def get_sku_list_rows(sku_list:list,layout:layout):
-    no_rows = layout.no_cross_aisles + 1
+    no_rows = layout.no_of_rows
     res = [[] for _ in range(no_rows)]
 
     for i in sku_list:

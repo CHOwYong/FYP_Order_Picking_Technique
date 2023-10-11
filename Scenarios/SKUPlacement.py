@@ -37,24 +37,24 @@ class WarehouseSKUIDGenerator:
                 file.write(f"{sku}\n")
     
 #%%
-# Example usage of the WarehouseSKUIDGenerator
-seed = 1111
-num_columns = 5
-num_rows = 1
-skus_per_aisle = 80
-num_of_items = 10
-num_sets = 5
-output_folder = "D:\Monash\FYP Project\FIT3161-3162\Sku"  # Change this to your desired folder name
-output_filename = "test.txt"
+# # Example usage of the WarehouseSKUIDGenerator
+# seed = 1111
+# num_columns = 5
+# num_rows = 1
+# skus_per_aisle = 80
+# num_of_items = 10
+# num_sets = 5
+# output_folder = "D:\Monash\FYP Project\FIT3161-3162\Sku"  # Change this to your desired folder name
+# output_filename = "test.txt"
 
-if not os.path.exists(output_folder):
-    os.makedirs(output_folder)
+# if not os.path.exists(output_folder):
+#     os.makedirs(output_folder)
 
-output_filepath = os.path.join(output_folder, output_filename)
+# output_filepath = os.path.join(output_folder, output_filename)
 
-for i in range(num_sets):
-    seed = seed + i + 2  # Increment seed for each set
-    generator = WarehouseSKUIDGenerator(seed,num_columns, num_rows, skus_per_aisle, num_of_items)
-    generator.generate_all_skus()
-    generator.writeToFile(output_filepath)
+# for i in range(num_sets):
+#     seed = seed + i + 2  # Increment seed for each set
+#     generator = WarehouseSKUIDGenerator(seed,num_columns, num_rows, skus_per_aisle, num_of_items)
+#     generator.generate_all_skus()
+#     generator.writeToFile(output_filepath)
 # %%

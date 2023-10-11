@@ -39,7 +39,7 @@ def a_star_algorithm(layout:layout,sku_orderList):
         # print("is it goal:",check)
         # print("goal left:",goals_list)
         if check:
-            print(curr_node.get_sku_no())
+            # print(curr_node.get_sku_no())
             goals = goals_list
             if len(goals) == 0:
                 total_dist_travel = curr_node.get_total_dist()
@@ -125,6 +125,8 @@ def g_cost(sku1:sku, sku2:sku):
         # same row
         if sku1_no_str[1] == sku2_no_str[1]:
             dist = 2
+        else:
+            raise Exception("g_cost Error")
     return dist
 
 

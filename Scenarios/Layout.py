@@ -1,7 +1,7 @@
 """
 Author : OwYongCheeHao
-last modified: 25/9
-last modified by: OwYongCheeHao
+last modified: 9/10
+last modified by: Tan Jian Xi
 """
 #%%
 from Aisle import *
@@ -10,10 +10,11 @@ class layout():
     """
     This class creates a network graph of the warehouse Layout based on various parameters
     """
-    no_of_sku_per_aisle = 0
-    no_of_shelves = 0
-    no_of_rows = 1
-    no_of_columns = 1
+    # no_of_sku_per_aisle = 0
+    # no_of_shelves = 0
+    # no_of_rows = 1
+    # no_of_columns = 1
+    # no_cross_aisles = 0
     
     start_node = None
     aisle_arr = None
@@ -23,12 +24,9 @@ class layout():
         self.no_of_shelves = no_of_shelves
         self.no_of_rows = no_of_rows
         self.no_of_columns = no_of_columns
-    
-    #TODO implement different types of layouts
-    #TODO allow selection of different layouts by choosing 1 for layout 1, 2 for layout 2 etc...
-    #TODO allow for random selection of a layout
-
-    def load(self): #Maybe switch this to load layout one, then have other functions for other layouts, then have a big load function that chooses what to load
+        self.no_cross_aisles = no_of_rows - 1
+   
+    def load(self): 
         # Create a list of aisles
         aisle_arr = [[None for i in range(self.no_of_columns)] for j in range(self.no_of_rows)]
         
@@ -88,7 +86,7 @@ def link_TB(aisle1, aisle2):
 if __name__ == "__main__":
 
     ####### Testing for layout ########
-    layout1 = layout(10,0,2,2)
+    layout1 = layout(40,0,6,6)
     layout1.load()
     print(layout1.aisle_arr)
 # %%
