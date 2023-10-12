@@ -10,21 +10,24 @@ def get_sku_list_rows(sku_list:list,layout:layout):
     no_rows = layout.no_of_rows
     res = [[] for _ in range(no_rows)]
 
+    no_digits = len(str(layout.no_of_rows))
+
     for i in sku_list:
-        row_no = int(str(i)[0])
+        row_no = int(str(i)[0:no_digits])
         res[row_no-1].append(i)
 
     return res
 
-def get_aisles(sku_list:list):
+def get_aisles(sku_list:list,layout:layout):
     aisles = []
     for i in range(len(sku_list)):
         sku_list[i] = str(sku_list[i])
       
+    no_digits = len(str(layout.no_of_rows))
     
     for sku in sku_list:
-        sku_col = int(sku[1]) #column no
-        sku_no  = int(sku[2:])
+        sku_col = int(sku[no_digits:no_digits*2]) #column no
+        sku_no  = int(sku[no_digits*2:])
         if sku_no > 40:
             #means sku is on the right side of the aisle
             if sku_col + 1 not in aisles:
@@ -36,8 +39,8 @@ def get_aisles(sku_list:list):
     return sorted(aisles)
 
 
-def move_down_next_row(ended_at:int,sku_next_row:list):
-    aisles_next_row = get_aisles(sku_list=sku_next_row)
+def move_down_next_row(ended_at:int,sku_next_row:list,layout:layout):
+    aisles_next_row = get_aisles(sku_list=sku_next_row,layout=layout)
 
     if abs(ended_at - aisles_next_row[0]) < abs(ended_at - aisles_next_row[-1]):
         return(2,aisles_next_row[0],"right")
@@ -45,10 +48,10 @@ def move_down_next_row(ended_at:int,sku_next_row:list):
         return(2,aisles_next_row[-1],"left")
 
 
-def heuristic_s_picking_row(sku_list:list,start_aisle:int,direction:str):
+def heuristic_s_picking_row(sku_list:list,start_aisle:int,direction:str,layout:layout):
     sku_list = sorted(sku_list)
     total_dist = 0
-    aisles = get_aisles(sku_list=sku_list)
+    aisles = get_aisles(sku_list=sku_list,layout=layout)
     ended_at = None
 
     if direction == "left":
@@ -124,7 +127,7 @@ def heuristic_s(sku_list, layout:layout):
 	# 	keep previous aisle as current aisle
 
     for row in rows[:last_row_with_items]:
-        aisles_to_pick_from = get_aisles(row)
+        aisles_to_pick_from = get_aisles(row,layout=layout)
         if len(aisles_to_pick_from) > 0:
             if previous_aisle is not None:
                 #calculate aisle shift
@@ -132,7 +135,7 @@ def heuristic_s(sku_list, layout:layout):
                 total_dist += min(abs(diff_aisles-1),diff_aisles)*2 + diff_aisles*2
 
                 #calculate move down
-                moved_down = move_down_next_row(previous_aisle,row)
+                moved_down = move_down_next_row(previous_aisle,row,layout=layout)
                 total_dist += moved_down[0]
                 current_aisle = moved_down[1]
                 direction =  moved_down[2]
@@ -142,7 +145,7 @@ def heuristic_s(sku_list, layout:layout):
                 total_dist += min(abs(diff_aisles-1),diff_aisles)*2 + diff_aisles*2
 
 
-            picked_row = heuristic_s_picking_row(row,current_aisle,direction)
+            picked_row = heuristic_s_picking_row(row,current_aisle,direction,layout)
             total_dist += picked_row[0]
             previous_aisle = current_aisle
         
@@ -163,9 +166,9 @@ def heuristic_s(sku_list, layout:layout):
     pass
 
 if __name__ == "__main__":
-    layout = layout(80,4,100,4)
-    skus = [1140,1141,1341,1440,2140,2141,2341,2440]
-    print(heuristic_s(layout=layout,sku_list=skus))
+    # layout = layout(80,4,4,4)
+    # skus = [1140,1141,1341,1440,2140,2141,2341,2440]
+    # print(heuristic_s(layout=layout,sku_list=skus))
     # skus = [1140,3140]
     # print(heuristic_s(layout=layout,sku_list=skus))
     # skus = [1140,3141]
@@ -174,6 +177,8 @@ if __name__ == "__main__":
     # print(heuristic_s(layout=layout,sku_list=skus))
     # skus = [3141]
     # print(heuristic_s(layout=layout,sku_list=skus))
-
+    # layout = layout(80,0,10,10)
+    # skus = [101040]
+    # print(heuristic_s(layout=layout,sku_list=skus))
     
     pass
