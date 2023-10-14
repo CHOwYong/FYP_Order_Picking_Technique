@@ -47,7 +47,7 @@ class TestHeuristicS(unittest.TestCase):
         skus = [3141]
         self.assertEqual(heuristic_s(layout=layout1,sku_list=skus),252)
 
-        layout2 = layout(80,0,10,10)
+        layout2 = layout(80,100,10,10)
         """
         Ensure that algorithm works when skus to be picked have sku id that 
         is more that 4
