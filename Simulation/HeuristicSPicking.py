@@ -140,14 +140,11 @@ def heuristic_s(sku_list, layout:layout):
                 current_aisle = moved_down[1]
                 direction =  moved_down[2]
 
-            elif previous_aisle is None and aisles_to_pick_from[0] != 1:
-                diff_aisles = min(abs(1 - aisles_to_pick_from[0]),abs(1 - aisles_to_pick_from[-1]))
-                total_dist += min(abs(diff_aisles-1),diff_aisles)*2 + diff_aisles*2
-
-
+           
+            previous_aisle = current_aisle
             picked_row = heuristic_s_picking_row(row,current_aisle,direction,layout)
             total_dist += picked_row[0]
-            previous_aisle = current_aisle
+            current_aisle = picked_row[1]
         
         elif len(aisles_to_pick_from) == 0:
             total_dist += 42
@@ -159,26 +156,26 @@ def heuristic_s(sku_list, layout:layout):
     # #GOING BACK UP
     # total_dist += dist between current aisle and first aisle
     # total_dist += dist between end_row and first row
-    total_dist += return_to_start(last_row_with_items,previous_aisle)
+    total_dist += return_to_start(last_row_with_items,current_aisle)
     # return total dist
     
     return total_dist
     pass
 
 if __name__ == "__main__":
-    # layout = layout(80,4,4,4)
-    # skus = [1140,1141,1341,1440,2140,2141,2341,2440]
-    # print(heuristic_s(layout=layout,sku_list=skus))
-    # skus = [1140,3140]
-    # print(heuristic_s(layout=layout,sku_list=skus))
-    # skus = [1140,3141]
-    # print(heuristic_s(layout=layout,sku_list=skus))
-    # skus = [2140]
-    # print(heuristic_s(layout=layout,sku_list=skus))
-    # skus = [3141]
-    # print(heuristic_s(layout=layout,sku_list=skus))
-    # layout = layout(80,0,10,10)
-    # skus = [101040]
-    # print(heuristic_s(layout=layout,sku_list=skus))
+    layout1 = layout(80,4,4,4)
+    skus = [1140,1141,1341,1440,2140,2141,2341,2440]
+    print(heuristic_s(layout=layout1,sku_list=skus))
+    skus = [1140,3140]
+    print(heuristic_s(layout=layout1,sku_list=skus))
+    skus = [1140,3141]
+    print(heuristic_s(layout=layout1,sku_list=skus))
+    skus = [2140]
+    print(heuristic_s(layout=layout1,sku_list=skus))
+    skus = [3141]
+    print(heuristic_s(layout=layout1,sku_list=skus))
+    layout2 = layout(80,0,10,10)
+    skus = [101040]
+    print(heuristic_s(layout=layout2,sku_list=skus))
     
     pass
