@@ -93,6 +93,9 @@ def simulate(rangeRowsCols:int,maxNoSKUs:int,noIterations:int,noWorkers:int,file
         progress.step(100.0/float(noIterations))
         mainframe.update()
 
+    progress["value"] = 0.00
+    mainframe.update()
+
     writeNewCsv(filename + ".csv",res)
     
     print("Results Have Been Written to " + os.getcwd() + "\\" + filename + ".csv")
