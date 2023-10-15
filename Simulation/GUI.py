@@ -1,5 +1,5 @@
 from SimulationRunner import simulate
-from tkinter import *
+from tkinter import * # type: ignore
 from tkinter import ttk
 
 
@@ -7,7 +7,7 @@ root = Tk()
 
 root.title("Warehouse Simulation Software - MCS08")
 mainframe = ttk.Frame(root, padding="3 3 12 12")
-mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+mainframe.grid(column=0, row=0, sticky=(N, W, E, S)) # type: ignore
 
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
@@ -28,15 +28,15 @@ maxRowsCols = IntVar(value=1)
 maxNoWorkers = IntVar(value=20)
 maxNoSkus = IntVar(value=20)
 
-spinmaxRowsCols = ttk.Spinbox(mainframe,from_=1,to_=9,textvariable=maxRowsCols,wrap=True)
+spinmaxRowsCols = ttk.Spinbox(mainframe,from_=1,to_=9,textvariable=maxRowsCols,wrap=True)# type: ignore
 spinmaxRowsCols.grid(row=1,column=0,padx=10,pady=10)
 spinmaxRowsCols.state(['readonly'])
 
-spinmaxNoWorkers = ttk.Spinbox(mainframe,from_=1,to_=40,textvariable=maxNoWorkers,wrap=True)
+spinmaxNoWorkers = ttk.Spinbox(mainframe,from_=1,to_=40,textvariable=maxNoWorkers,wrap=True)# type: ignore
 spinmaxNoWorkers.grid(row=1,column=1,padx=10,pady=10)
 spinmaxNoWorkers.state(['readonly'])
 
-spinmaxNoSkus = ttk.Spinbox(mainframe,from_=1,to_=40,textvariable=maxNoSkus,wrap=True)
+spinmaxNoSkus = ttk.Spinbox(mainframe,from_=1,to_=40,textvariable=maxNoSkus,wrap=True)# type: ignore
 spinmaxNoSkus.grid(row=1,column=2,padx=10,pady=10)
 spinmaxNoSkus.state(['readonly'])
 
@@ -63,7 +63,7 @@ labelnoIterations = ttk.Label(mainframe,text="Number of Iterations\nto be run:")
 labelnoIterations.grid(row=3,column=0,padx=10,pady=10)
 
 
-spinnoIterations = ttk.Spinbox(mainframe,from_=25,to_=1000,textvariable=noIterations,increment=25)
+spinnoIterations = ttk.Spinbox(mainframe,from_=25,to_=1000,textvariable=noIterations,increment=25)# type: ignore
 spinnoIterations.grid(row=4,column=0,padx=10,pady=10)
 spinnoIterations.state(['readonly'])
 
