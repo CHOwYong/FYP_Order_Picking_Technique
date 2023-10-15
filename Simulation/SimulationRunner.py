@@ -69,6 +69,10 @@ def simulate(rangeRowsCols:int,maxNoSKUs:int,noIterations:int,noWorkers:int,file
         else:
             no_workers = random.randint(1,noWorkers)
 
+        print("Received Rows Cols = " + str(rowsCols))
+        print("Received No Workers = " + str(no_workers))
+        print("Received no Skus = " + str(noSkus))
+
         warehouseLayout = layout(no_of_sku_per_aisle = skusPerAisle,no_of_shelves=0,no_of_rows=rowsCols,no_of_columns=rowsCols)
         warehouseLayout.load()
 
