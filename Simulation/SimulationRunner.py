@@ -22,9 +22,10 @@ from Layout import layout
 import random
 from CSVWriter import writeNewCsv
 import os
+from tkinter import *
+from tkinter import ttk
 
-
-def simulate(rangeRowsCols:int,maxNoSKUs:int,noIterations:int,noWorkers:int,filename:str,rangeRowColsFixed:int = 0,maxNoSkusFixed:int = 0,noWorkersFixed:int = 0) -> None:
+def simulate(rangeRowsCols:int,maxNoSKUs:int,noIterations:int,noWorkers:int,filename:str,progress:ttk.Progressbar,mainframe:ttk.Frame,rangeRowColsFixed:int = 0,maxNoSkusFixed:int = 0,noWorkersFixed:int = 0) -> None:
     """
     Function that runs the simulation and writes output to a .csv file
     """
@@ -88,6 +89,12 @@ def simulate(rangeRowsCols:int,maxNoSKUs:int,noIterations:int,noWorkers:int,file
 
         subres = [seed] + resRandom + resHeuristic + resAStar + [warehouseLayout.no_cross_aisles] + [no_workers] + [rowsCols] + [noSkus]
         res.append(subres)
+
+        progress.step(100.0/float(noIterations))
+        mainframe.update()
+
+    progress["value"] = 0.00
+    mainframe.update()
 
     writeNewCsv(filename + ".csv",res)
     
